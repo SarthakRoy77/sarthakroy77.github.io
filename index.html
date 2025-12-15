@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sarthak Roy | Personal Website</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Sarthak Roy is a student at Delhi Public School Patna. Interested in Python programming, robotics, web development, football, and technology." />
+  <meta name="keywords" content="Sarthak Roy, DPS Patna, Delhi Public School Patna, Sarthak Roy DPS Patna, student developer, python student, robotics student" />
+  <meta name="author" content="Sarthak Roy" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sarthak Roy | DPS Patna" />
+  <meta property="og:description" content="Personal website of Sarthak Roy, DPS Patna student interested in Python, robotics, and technology." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sarthakroy77.github.io" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Sarthak Roy | DPS Patna" />
+  <meta name="twitter:description" content="Student at DPS Patna passionate about Python, robotics, and tech." />
+  <title>Sarthak Roy | DPS Patna Student | Python & Robotics</title>
 
   <!-- React -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -12,12 +28,27 @@
 
   <!-- CSS -->
   <style>
+    :root {
+      --bg-dark: linear-gradient(135deg, #020617, #0f172a, #1e293b);
+      --bg-light: #f2f2f2;
+      --card-dark: rgba(15, 23, 42, 0.75);
+      --card-light: #e5e5e5;
+      --text-dark: #e5e7eb;
+      --text-light: #1f2937;
+    }
+
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      background: linear-gradient(135deg, #020617, #0f172a, #1e293b);
-      color: #e5e7eb;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
     }
 
     .container {
@@ -28,14 +59,23 @@
       padding: 24px;
     }
 
+    .layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+
     .card {
-      max-width: 900px;
-      width: 100%;
-      background: rgba(15, 23, 42, 0.75);
+      background: var(--card-dark);
       backdrop-filter: blur(10px);
       border-radius: 22px;
-      padding: 48px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    body.light .card {
+      background: var(--card-light);
     }
 
     h1 {
@@ -44,59 +84,58 @@
     }
 
     .subtitle {
-      color: #cbd5f5;
-      font-size: 1.1rem;
+      opacity: 0.8;
       margin-bottom: 32px;
     }
 
     h2 {
-      font-size: 1.6rem;
+      margin-top: 28px;
       margin-bottom: 12px;
-      margin-top: 32px;
     }
 
     p {
-      color: #d1d5db;
       line-height: 1.7;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
     }
 
     .grid-item {
-      background: rgba(30, 41, 59, 0.6);
-      padding: 16px;
-      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 14px;
+      border-radius: 12px;
+    }
+
+    body.light .grid-item {
+      background: #d4d4d4;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 24px;
+      height: fit-content;
     }
 
     .footer {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      margin-top: 40px;
+      margin-top: 32px;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 12px;
     }
 
-    .github-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    .github-link, .toggle {
       background: #e5e7eb;
       color: #020617;
-      padding: 10px 18px;
+      padding: 10px 16px;
       border-radius: 14px;
       text-decoration: none;
       font-weight: 600;
-      transition: background 0.2s ease;
-    }
-
-    .github-link:hover {
-      background: #f1f5f9;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -107,72 +146,64 @@
   <!-- React Script -->
   <script type="text/babel">
     function App() {
+      const [light, setLight] = React.useState(false);
+
+      React.useEffect(() => {
+        if (light) {
+          document.body.classList.add("light");
+        } else {
+          document.body.classList.remove("light");
+        }
+      }, [light]);
+
+      const toggleMode = () => {
+        setLight(prev => !prev);
+      };
+
       return (
         <div className="container">
-          <div className="card">
-            <header>
-              <h1>Sarthak Roy</h1>
-              <p className="subtitle">Student · Python Developer · Tech & Robotics Enthusiast</p>
-            </header>
+          <div className="layout">
+            <div className="card">
+              <header>
+                <h1>Sarthak Roy</h1>
+                <p className="subtitle">Student · Python Developer · Tech & Robotics Enthusiast</p>
+                <button className="toggle" onClick={toggleMode}>Toggle Light Mode</button>
+              </header>
 
-            <section>
-              <h2>About Me</h2>
-              <p>
-                I am a student at DPS Patna with a strong interest in technology. I enjoy
-                working with Python, exploring robotics, and building projects that solve
-                real-world problems. I am also passionate about football and continuous
-                learning.
-              </p>
-            </section>
+              <section>
+                <h2>About Me</h2>
+                <p>
+                  I am a student at DPS Patna with a strong interest in technology. I enjoy working with
+                  Python, exploring robotics, and building projects that solve real-world problems.
+                </p>
+              </section>
 
-            <section>
-              <h2>Interests</h2>
-              <div className="grid">
-                <div className="grid-item">Python Programming</div>
-                <div className="grid-item">Robotics & Automation</div>
-                <div className="grid-item">Web Development</div>
-                <div className="grid-item">Football</div>
-              </div>
-            </section>
+              <section>
+                <h2>What I Work On</h2>
+                <div className="grid">
+                  <div className="grid-item">Python Projects</div>
+                  <div className="grid-item">Robotics Prototyping</div>
+                  <div className="grid-item">Web Development</div>
+                  <div className="grid-item">Learning New Tech</div>
+                </div>
+              </section>
 
-            <section>
-              <h2>What I Work On</h2>
-              <p>
-                I focus on building practical and skill-oriented projects. Most of my work
-                revolves around writing clean Python code, experimenting with robotics concepts,
-                and developing simple yet effective web applications. I enjoy learning by doing
-                and constantly improving my problem-solving approach through hands-on projects.
-              </p>
-              <div className="grid">
-                <div className="grid-item">Python Projects & Automation</div>
-                <div className="grid-item">Robotics Logic & Prototyping</div>
-                <div className="grid-item">Frontend Web Development</div>
-                <div className="grid-item">Tech Experimentation & Learning</div>
-              </div>
-            </section>
+              <footer className="footer">
+                <span>© {new Date().getFullYear()} Sarthak Roy</span>
+                <a className="github-link" href="https://github.com/SarthakRoy77" target="_blank">GitHub</a>
+              </footer>
+            </div>
 
-            <section>
+            <div className="card sidebar">
               <h2>Personal Info</h2>
               <div className="grid">
                 <div className="grid-item"><strong>Age:</strong> 11</div>
                 <div className="grid-item"><strong>Class:</strong> 6</div>
-                <div className="grid-item"><strong>School:</strong> Delhi Public School Patna</div>
+                <div className="grid-item"><strong>School:</strong> DPS Patna</div>
                 <div className="grid-item"><strong>Likes:</strong> Football, Anime</div>
-                <div className="grid-item"><strong>Wants:</strong> MacBook Pro — because the OS is beautiful</div>
+                <div className="grid-item"><strong>Wants:</strong> MacBook Pro</div>
               </div>
-            </section>
-
-            <footer className="footer">
-              <span>© {new Date().getFullYear()} Sarthak Roy</span>
-              <a
-                className="github-link"
-                href="https://github.com/SarthakRoy77"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub
-              </a>
-            </footer>
+            </div>
           </div>
         </div>
       );
