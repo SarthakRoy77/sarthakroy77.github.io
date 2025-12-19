@@ -4,31 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Sarthak Roy is a student at Delhi Public School Patna. Interested in Python programming, robotics, web development, football, and technology." />
-  <meta name="keywords" content="Sarthak Roy, DPS Patna, Delhi Public School Patna, Sarthak Roy DPS Patna, student developer, python student, robotics student" />
-  <meta name="author" content="Sarthak Roy" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Sarthak Roy | DPS Patna" />
-  <meta property="og:description" content="Personal website of Sarthak Roy, DPS Patna student interested in Python, robotics, and technology." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sarthakroy77.github.io" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Sarthak Roy | DPS Patna" />
-  <meta name="twitter:description" content="Student at DPS Patna passionate about Python, robotics, and tech." />
   <title>Sarthak Roy | DPS Patna Student | Python & Robotics</title>
 
-  <!-- React -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <!-- CSS -->
   <style>
     :root {
+      scroll-behavior: smooth;
       --bg-dark: linear-gradient(135deg, #020617, #0f172a, #1e293b);
       --bg-light: #f2f2f2;
       --card-dark: rgba(15, 23, 42, 0.75);
@@ -39,11 +23,12 @@
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
       background: var(--bg-dark);
       color: var(--text-dark);
       transition: all 0.3s ease;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     body.light {
@@ -52,26 +37,26 @@
     }
 
     .container {
-      min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
+      justify-content: space-between;
+      align-items: flex-start;
       gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+      box-sizing: border-box;
     }
 
     .card {
       background: var(--card-dark);
       backdrop-filter: blur(10px);
       border-radius: 22px;
-      padding: 40px;
+      padding: 30px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
       transition: all 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
+      max-width: 800px;
     }
 
     body.light .card {
@@ -80,12 +65,14 @@
 
     h1 {
       font-size: 3rem;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
+      text-align: center;
     }
 
     .subtitle {
       opacity: 0.8;
-      margin-bottom: 32px;
+      margin-bottom: 20px;
+      text-align: center;
     }
 
     h2 {
@@ -99,15 +86,16 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
       margin-top: 14px;
     }
 
     .grid-item {
       background: rgba(255, 255, 255, 0.1);
-      padding: 14px;
-      border-radius: 12px;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.95rem;
     }
 
     body.light .grid-item {
@@ -115,9 +103,33 @@
     }
 
     .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       position: sticky;
       top: 24px;
-      height: fit-content;
+      height: auto;
+      width: 150px;
+      order: 2;
+    }
+
+    .sidebar .toggle {
+      display: block;
+      margin: 4px 0;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #e5e7eb;
+      color: #020617;
+      font-weight: bold;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar .toggle:hover {
+      background: #d1d5db;
     }
 
     .footer {
@@ -128,89 +140,133 @@
       gap: 12px;
     }
 
-    .github-link, .toggle {
+    .footer-actions button, .footer-actions a {
+      margin: 6px 0;
+      padding: 8px 14px;
+      border-radius: 10px;
       background: #e5e7eb;
       color: #020617;
-      padding: 10px 16px;
-      border-radius: 14px;
+      font-weight: bold;
       text-decoration: none;
-      font-weight: 600;
       cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .footer-actions button:hover, .footer-actions a:hover {
+      background: #d1d5db;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .sidebar {
+        width: 100%;
+        order: 1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .sidebar .toggle {
+        margin: 4px 6px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Root -->
   <div id="root"></div>
 
-  <!-- React Script -->
   <script type="text/babel">
     function App() {
       const [light, setLight] = React.useState(false);
 
       React.useEffect(() => {
-        if (light) {
-          document.body.classList.add("light");
-        } else {
-          document.body.classList.remove("light");
-        }
+        document.body.classList.toggle("light", light);
       }, [light]);
-
-      const toggleMode = () => {
-        setLight(prev => !prev);
-      };
 
       return (
         <div className="container">
-          <div className="layout">
-            <div className="card">
-              <header>
-                <h1>Sarthak Roy</h1>
-                <p className="subtitle">Student · Python Developer · Tech & Robotics Enthusiast</p>
-                <button className="toggle" onClick={toggleMode}>Toggle Light Mode</button>
-              </header>
+          <div className="card">
+            <header>
+              <h1>Sarthak Roy</h1>
+              <p className="subtitle">Student · Python Developer · Robotics Enthusiast</p>
+            </header>
 
-              <section>
-                <h2>About Me</h2>
-                <p>
-                  I am a student at DPS Patna with a strong interest in technology. I enjoy working with
-                  Python, exploring robotics, and building projects that solve real-world problems.
-                </p>
-              </section>
+            <section id="about">
+              <h2>About Me</h2>
+              <p>I am a student at Delhi Public School Patna who is deeply interested in technology and computers. I enjoy learning how software works, how machines think, and how code can be used to solve real problems. I started with Python and slowly expanded my interests into robotics and web development.</p>
+              <p>I believe learning should be practical and curiosity-driven. I like experimenting, fixing errors, and understanding concepts instead of memorizing them. My long-term goal is to become a skilled software and robotics engineer.</p>
+            </section>
 
-              <section>
-                <h2>What I Work On</h2>
-                <div className="grid">
-                  <div className="grid-item">Python Projects</div>
-                  <div className="grid-item">Robotics Prototyping</div>
-                  <div className="grid-item">Web Development</div>
-                  <div className="grid-item">Learning New Tech</div>
-                </div>
-              </section>
-
-              <footer className="footer">
-                <span>© {new Date().getFullYear()} Sarthak Roy</span>
-                <a className="github-link" href="https://github.com/SarthakRoy77" target="_blank">GitHub</a>
-              </footer>
-            </div>
-
-            <div className="card sidebar">
-              <h2>Personal Info</h2>
+            <section id="work">
+              <h2>What I Work On</h2>
               <div className="grid">
-                <div className="grid-item"><strong>Age:</strong> 11</div>
-                <div className="grid-item"><strong>Class:</strong> 6</div>
-                <div className="grid-item"><strong>School:</strong> DPS Patna</div>
-                <div className="grid-item"><strong>Likes:</strong> Football, Anime</div>
-                <div className="grid-item"><strong>Wants:</strong> MacBook Pro</div>
+                <div className="grid-item">🐍 Python Programming – logic, scripting, automation basics</div>
+                <div className="grid-item">🤖 Robotics – sensors, motors, and control logic</div>
+                <div className="grid-item">🌐 Web Development – HTML, CSS, React fundamentals</div>
+                <div className="grid-item">🧠 Problem Solving – algorithms and logical thinking</div>
+                <div className="grid-item">📘 Learning AI & ML – beginner concepts</div>
+                <div className="grid-item">🚀 Consistent Skill Growth</div>
               </div>
+            </section>
+
+            <section id="projects">
+              <h2>Projects & Learning</h2>
+              <div className="grid">
+                <div className="grid-item">📂 Python Practice Projects</div>
+                <div className="grid-item">⚙️ Automation Scripts</div>
+                <div className="grid-item">🌱 Beginner Web Projects</div>
+                <div className="grid-item">🧪 Logic & Algorithm Experiments</div>
+                <div className="grid-item">📊 Data Structures (Basics)</div>
+                <div className="grid-item">🔓 Open-source Learning</div>
+              </div>
+            </section>
+
+            <section id="contact">
+              <h2>Contact & Socials</h2>
+              <div className="grid">
+                <div className="grid-item"><strong>Email:</strong> p-2066-19@dpspatna.com</div>
+                <div className="grid-item"><strong>GitHub:</strong> github.com/SarthakRoy77</div>
+                <div className="grid-item"><strong>Roblox:</strong> suimaster115</div>
+              </div>
+            </section>
+
+            <footer className="footer">
+              <span>© {new Date().getFullYear()} Sarthak Roy</span>
+              <div className="footer-actions">
+                <button onClick={() => setLight(!light)}>Light / Dark</button>
+                <a className="github-link" href="https://github.com/SarthakRoy77" target="_blank" rel="noreferrer">GitHub</a>
+              </div>
+            </footer>
+          </div>
+
+          <div className="card sidebar">
+            <h2>Navigate</h2>
+            <a className="toggle" href="#about">About</a>
+            <a className="toggle" href="#work">Work</a>
+            <a className="toggle" href="#projects">Projects</a>
+            <a className="toggle" href="#contact">Contact</a>
+
+            <h2 className="personal-title">Personal Info</h2>
+            <div className="grid">
+              <div className="grid-item"><strong>Name:</strong> Sarthak Roy</div>
+              <div className="grid-item"><strong>Age:</strong> 11</div>
+              <div className="grid-item"><strong>Class:</strong> 6</div>
+              <div className="grid-item"><strong>School:</strong> Delhi Public School Patna</div>
+              <div className="grid-item"><strong>Skills:</strong> Python, HTML, CSS, React</div>
+              <div className="grid-item"><strong>Interests:</strong> Robotics, Football, Anime</div>
+              <div className="grid-item"><strong>Goal:</strong> Software & Robotics Engineer</div>
             </div>
           </div>
         </div>
       );
     }
 
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<App />);
+    ReactDOM.render(<App />, document.getElementById("root"));
   </script>
 </body>
 </html>
