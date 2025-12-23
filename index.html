@@ -11,6 +11,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://unpkg.com/framer-motion/dist/framer-motion.umd.js"></script>
 
+
   <style>
     :root {
       scroll-behavior: smooth;
@@ -38,14 +39,14 @@
     }
 
     .container {
-      display: flex;
-      align-items: flex-start;
-      gap: 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px;
-      box-sizing: border-box;
-    }
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;   /* controls distance between main card and sidebar */
+  max-width: 1200px; /* optional: keeps layout tighter */
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+}
 
     .card {
       background: var(--card-dark);
@@ -108,47 +109,53 @@
       gap: 10px;
       position: sticky;
       top: 24px;
+      height: auto;
       width: 150px;
+      order: 2;
     }
 
     .sidebar .toggle {
       display: block;
+      margin: 4px 0;
       padding: 6px 10px;
       border-radius: 8px;
       background: #e5e7eb;
       color: #020617;
       font-weight: bold;
+      text-decoration: none;
       text-align: center;
       cursor: pointer;
       font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar .toggle:hover {
+      background: #d1d5db;
     }
 
     .footer {
       display: flex;
       justify-content: space-between;
       margin-top: 32px;
+      flex-wrap: wrap;
       gap: 12px;
     }
 
-    /* ✅ FIXED: code-orb OUTSIDE media query */
-    .code-orb {
-      position: fixed;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background: radial-gradient(circle at top left, #38bdf8, #1e40af);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
+    .footer-actions button, .footer-actions a {
+      margin: 6px 0;
+      padding: 8px 14px;
+      border-radius: 10px;
+      background: #e5e7eb;
+      color: #020617;
       font-weight: bold;
-      font-family: monospace;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      text-decoration: none;
       cursor: pointer;
-      z-index: 999;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .footer-actions button:hover, .footer-actions a:hover {
+      background: #d1d5db;
     }
 
     @media (max-width: 900px) {
@@ -156,16 +163,47 @@
         flex-direction: column;
         align-items: center;
       }
+
+      .sidebar {
+        width: 100%;
+        order: 1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .sidebar .toggle {
+        margin: 4px 6px;
+      }
+
+      .code-orb {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle at top left, #38bdf8, #1e40af);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-family: monospace;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  cursor: pointer;
+  z-index: 999;
+}
+
     }
   </style>
 </head>
-
 <body>
   <div id="root"></div>
 
   <script type="text/babel">
     function App() {
-      const { motion } = window.framerMotion; // ✅ FIXED
       const [light, setLight] = React.useState(false);
 
       React.useEffect(() => {
@@ -175,24 +213,96 @@
       return (
         <div className="container">
           <div className="card">
-            <h1>Sarthak Roy</h1>
-            <p className="subtitle">Student · Python Developer · Robotics Enthusiast</p>
+            <header>
+              <h1>Sarthak Roy</h1>
+              <p className="subtitle">Student · Python Developer · Robotics Enthusiast</p>
+            </header>
+
+            <section id="about">
+              <h2>About Me</h2>
+              <p>I am a student at Delhi Public School Patna who is deeply interested in technology and computers. I enjoy learning how software works, how machines think, and how code can be used to solve real problems. I started with Python and slowly expanded my interests into robotics and web development.</p>
+              <p>I believe learning should be practical and curiosity-driven. I like experimenting, fixing errors, and understanding concepts instead of memorizing them. My long-term goal is to become a skilled software and robotics engineer.</p>
+            </section>
+
+            <section id="work">
+              <h2>What I Work On</h2>
+              <div className="grid">
+                <div className="grid-item">🐍 Python Programming – logic, scripting</div>
+                <div className="grid-item">🤖 Robotics – sensors, motors, and control logic theory</div>
+                <div className="grid-item">🌐 Web Development – HTML, CSS, JS Basics</div>
+                <div className="grid-item">🧠 Problem Solving – algorithms and logical thinking</div>
+                <div className="grid-item">📘 Learning AI & ML – beginner concepts</div>
+              </div>
+            </section>
+
+            <section id="learn">
+              <h2>What I Want to Learn</h2>
+              <div className="grid">  
+                <div className="grid-item">😁- Java - to make apps, i will later because it's hard</div>
+                <div className="grid-item">🫨React – to create beautiful UI's just like this website</div>
+              </div>
+            </section>
+
+            <section id="family">
+  <h2>Family Background</h2>
+  <p>
+    I was born and brought up in <strong>Patna, Bihar</strong>, where I have spent my entire childhood and schooling. While I grew up in Patna, my family’s ancestral roots belong to <strong>Arah, Bhojpur district, Bihar</strong>, which forms an important part of our heritage and values.
+  </p>
+  <p>
+    My father, <strong>Dr. Sanjay Kumar Roy, MBBS, DNB</strong>, is a doctor at <strong>Paras HMRI Hospital</strong> and has always emphasized discipline, dedication, and service to society. My mother, <strong>Kumari Anuradha</strong>, is a botany teacher by profession and earlier worked as a teacher’s teacher, contributing significantly to academic development and mentoring other educators. My elder sister, <strong>Ankita Roy</strong>, is academically driven and is determined to pursue a career in medicine and become a doctor.
+  </p>
+  <p>
+    Growing up in such an education-oriented and supportive family environment has shaped my curiosity, work ethic, and interest in learning. The values of hard work, consistency, and continuous improvement that I learned at home strongly influence my approach to technology, studies, and personal growth.
+  </p>
+</section>
+
+<section id="projects">
+              <h2>Projects & Learning</h2>
+              <div className="grid">
+                <div className="grid-item">📂 Python Practice Projects</div>
+                <div className="grid-item">🧪 Logic & Algorithm Experiments</div>
+                <div className="grid-item">📊 Data Structures (Basics)</div>
+                <div className="grid-item">🔓 Open-source Learning</div>
+              </div>
+            </section>
+
+            <section id="contact">
+              <h2>Contact & Socials</h2>
+              <div className="grid">
+                <div className="grid-item"><strong>Email:</strong> p-2066-19@dpspatna.com</div>
+                <div className="grid-item"><strong>GitHub:</strong> github.com/SarthakRoy77</div>
+                <div className="grid-item"><strong>Roblox:</strong> suimaster115</div>
+              </div>
+            </section>
+
+            <footer className="footer">
+              <span>© {new Date().getFullYear()} Sarthak Roy</span>
+              <div className="footer-actions">
+                <button onClick={() => setLight(!light)}>Toggle Light</button>
+                <a className="github-link" href="https://github.com/SarthakRoy77" target="_blank" rel="noreferrer">GitHub</a>
+              </div>
+            </footer>
           </div>
 
           <div className="card sidebar">
             <h2>Navigate</h2>
             <a className="toggle" href="#about">About</a>
-          </div>
+            <a className="toggle" href="#work">Work</a>
+            <a className="toggle" href="#projects">Projects</a>
+            <a className="toggle" href="#contact">Contact</a>
+            <a className="toggle" href="#learn">Learn</a>
 
-          <motion.div
-            className="code-orb"
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {"< />"}
-          </motion.div>
+            <h2 className="personal-title">Me at a glance</h2>
+            <div className="grid">
+              <div className="grid-item"><strong>Name:</strong> Sarthak Roy</div>
+              <div className="grid-item"><strong>Age:</strong> 11</div>
+              <div className="grid-item"><strong>Class:</strong> 6</div>
+              <div className="grid-item"><strong>School:</strong> Delhi Public School Patna</div>
+              <div className="grid-item"><strong>Skills:</strong> Python, HTML, CSS, JS </div>
+              <div className="grid-item"><strong>Interests:</strong> Robotics, Football, Anime</div>
+              <div className="grid-item"><strong>Goal:</strong> Software & Robotics Engineer</div>
+            </div>
+          </div>
         </div>
       );
     }
